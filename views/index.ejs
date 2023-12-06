@@ -17,13 +17,12 @@
            
                 justify-content: center;
             }
-           
-            
+      
         }
 </style>
 
 <body>
-  <nav class="navbar bg-dark border-bottom border-body" data-bs-theme="dark"">
+  <nav class="navbar bg-dark border-bottom border-body" data-bs-theme="dark" style="padding-bottom: 1rem;padding-top: 1rem;">
         <div class=" container-fluid">
     <a class="navbar-brand">Expense App</a>
     <form class="d-flex" role="search">
@@ -44,16 +43,17 @@
     </div>
   </form>
   <div class="expense-container"
-    style="display: flex;flex-wrap: wrap;column-gap: 2vh;row-gap: 2vh;padding-left: 2vh;padding-right: 2vh;padding-top: 2vh;">
+    style="display: flex;flex-wrap: wrap;column-gap: 2vh;row-gap: 2vh;padding-left: 2vh;padding-right: 2vh;padding-top: 2vh;padding-bottom: 4rem;">
     <%expensedata.forEach((expense)=>{%>
       <div class="card"
         style="width: 18rem;box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.1), 0 6px 20px 0 rgba(0, 0, 0, 0.001);">
-        <div class="card-body" style="width: 18rem;height: 200px;">
+        <div class="card-body" style="width: 18rem;">
           <h5 class="card-title">
             <%=expense.expensename %>
           </h5>
           <p class="card-text">₹ <%=expense.expenseamount%>
           </p>
+          <p class="card-text" style="text-align: centerpadi;color: white;"><small class="text-muted"><%= expense.createdon.toString().split("GMT")[0]%></small></p>
           <div style="display: flex;column-gap: 2vh;padding-top: 2.9rem;">
             <button class="btn btn-outline-primary" id="edit/<%=expense._id%>">Edit</button>
            
