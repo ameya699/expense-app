@@ -3,9 +3,7 @@ const app=express();
 const PORT=process.env.PORT || 5000;
 const dbconnection=require("./config/dbConnection");
 const expenseSchema=require("./models/expense");
-const bodyParser = require("body-parser");
-const cookiesecret="bloggycookiesecret";
-const saltrounds=10;
+
 
 
 app.set("view engine","ejs");
@@ -15,9 +13,10 @@ app.listen(PORT,()=>{
     console.log(`Listening on ${PORT}`);
 })
 
-app.get("/",(req,res)=>{
-   
-    res.render("index");
+app.get("/",async(req,res)=>{
+   const expensedata=await expenseSchema.find();
+   const resdata=expensedata?expensedata:undefined;
+    res.render("index",{expensedata:expensedata});
 })
 
 app.post("/",async(req,res)=>{
@@ -33,6 +32,12 @@ app.post("/",async(req,res)=>{
         })
         res.redirect("/");
     }
+})
+
+app.get("/delete/:id",async(req,res)=>{
+    const isdeleted=await expenseSchema.findOneAndDelete({_id:req.params.id});
+    res.redirect("/");
+    
 })
 
 
