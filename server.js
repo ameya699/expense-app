@@ -34,6 +34,18 @@ app.post("/",async(req,res)=>{
     }
 })
 
+app.post("/update/:id",async(req,res)=>{
+    const expense=req.body.expense.trim();
+    const amount=req.body.amount.trim();
+    if(expense==null && amount ==null){
+        res.redirect("/");
+    }
+    const update=await expenseSchema.updateOne({_id:req.params.id},{expensename:expense,expenseamount:amount});
+    if(update){
+        res.redirect("/");
+    }
+})
+
 app.get("/delete/:id",async(req,res)=>{
     const isdeleted=await expenseSchema.findOneAndDelete({_id:req.params.id});
     res.redirect("/");
