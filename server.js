@@ -16,7 +16,13 @@ app.listen(PORT,()=>{
 app.get("/",async(req,res)=>{
    const expensedata=await expenseSchema.find();
    const resdata=expensedata?expensedata:undefined;
-    res.render("index",{expensedata:expensedata});
+   var totalexpenditure=0;
+   if(resdata.length){
+    resdata.forEach((res)=>{
+        totalexpenditure+=parseFloat(res.expenseamount);
+    })
+   }
+    res.render("index",{expensedata:expensedata,totalexpenditure});
 })
 
 app.post("/",async(req,res)=>{
