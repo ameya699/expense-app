@@ -17,6 +17,9 @@
            
                 justify-content: center;
             }
+            .display-5{
+              font-size: 20px!important;
+            }
       
         }
 </style>
@@ -27,7 +30,7 @@
     <a class="navbar-brand">Expense App</a>
     <form class="d-flex" role="search">
       <input class="form-control me-2" type="search" placeholder="Search expense" aria-label="Search">
-      <button class="btn btn-outline-success" type="submit">Search</button>
+      <!-- <button class="btn btn-outline-success" type="submit">Search</button> -->
     </form>
     </div>
   </nav>
@@ -44,68 +47,73 @@
   </form>
   <div class="expense-container"
     style="display: flex;flex-wrap: wrap;column-gap: 2vh;row-gap: 2vh;padding-left: 2vh;padding-right: 2vh;padding-top: 2vh;padding-bottom: 4rem;">
-    <%expensedata.forEach((expense)=>{%>
-      <div class="card"
-        style="width: 18rem;box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.1), 0 6px 20px 0 rgba(0, 0, 0, 0.001);">
-        <div class="card-body" style="width: 18rem;">
-          <h5 class="card-title">
-            <%=expense.expensename %>
-          </h5>
-          <p class="card-text">₹ <%=expense.expenseamount%>
-          </p>
-          <p class="card-text" style="text-align: centerpadi;color: white;"><small class="text-muted"><%= expense.createdon.toString().split("GMT")[0]%></small></p>
-          <div style="display: flex;column-gap: 2vh;padding-top: 2.9rem;">
-            <button class="btn btn-outline-primary" id="edit/<%=expense._id%>">Edit</button>
-           
-              <dialog id="dialog/<%=expense._id%>" style="
-                position:fixed;
-    top:0;
-    left:0;
-    right:0;
-    bottom:0;
-    background:#eee;
-    text-align:center;
-    border: none !important;
-    border-radius: 9px;
-                z-index: 1;
 
-                " >
-                <form action="/update/<%=expense._id%>" method="post" style="padding:5px;
-                  background:#eee;
-                  border-radius:5px;
-                  display:inline-block;
-                  vertical-align:middle;
-                  max-width:250px;
+      <%expensedata.forEach((expense)=>{%>
+        <div class="card " 
+          style="width: 18rem;box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.1), 0 6px 20px 0 rgba(0, 0, 0, 0.001);">
+          <div class="card-body" style="width: 18rem;">
+            <h5 class="card-title">
+              <%=expense.expensename %>
+            </h5>
+            <p class="card-text">₹ <%=expense.expenseamount%>
+            </p>
+            <p class="card-text" style="text-align: centerpadi;color: white;"><small class="text-muted"><%= expense.createdon.toString().split("GMT")[0]%></small></p>
+            <div style="display: flex;column-gap: 2vh;padding-top: 2.9rem;">
+              <button class="btn btn-outline-primary" id="edit/<%=expense._id%>">Edit</button>
+             
+                <dialog id="dialog/<%=expense._id%>" style="
+                  position:fixed;
+      top:0;
+      left:0;
+      right:0;
+      bottom:0;
+      background:#eee;
+      text-align:center;
+      border: none !important;
+      border-radius: 9px;
+                  z-index: 1;
+  
                   " >
-                  <div class="form-row"
-                    style="display: flex; column-gap: 2%;padding: 3vh 1vh 2vh 1vh;justify-content: center;flex-wrap: wrap;row-gap: 1rem;">
-                    <input type="text" class="form-control" placeholder="Expense" name="expense" value="<%=expense.expensename%>" style="width: 300px;">
-                    <input type="text" class="form-control" placeholder="Amount" name="amount" value="<%=expense.expenseamount%>" style="width: 300px;">
-                    <button class="btn btn-outline-success" type="submit">Update Expense</button>
-                    <button class="btn btn-outline-danger"  id="cancel/<%=expense._id%>">Cancel</button>
-                  </div>
-                </form>
-              </dialog>
-              <script>
-                var btnclick=document.getElementById("edit/<%=expense._id%>");
-                
-                var btncancel=document.getElementById("cancel/<%=expense._id%>");
-                btnclick.addEventListener('click',()=>{
-                  // alert("clicked <%=expense.expensename%>");
-                  var dialog=document.getElementById("dialog/<%=expense._id%>");
-                  dialog.show();
-                });
-                btncancel.addEventListener('click',()=>{
-                  var dialog=document.getElementById("dialog/<%=expense._id%>");
-                  dialog.close();
-                })
-                </script>
-            <a href="/delete/<%=expense._id%>"><button class="btn btn-outline-danger">Delete</button></a>
+                  <form action="/update/<%=expense._id%>" method="post" style="padding:5px;
+                    background:#eee;
+                    border-radius:5px;
+                    display:inline-block;
+                    vertical-align:middle;
+                    max-width:250px;
+                    " >
+                    <div class="form-row"
+                      style="display: flex; column-gap: 2%;padding: 3vh 1vh 2vh 1vh;justify-content: center;flex-wrap: wrap;row-gap: 1rem;">
+                      <input type="text" class="form-control" placeholder="Expense" name="expense" value="<%=expense.expensename%>" style="width: 300px;">
+                      <input type="text" class="form-control" placeholder="Amount" name="amount" value="<%=expense.expenseamount%>" style="width: 300px;">
+                      <button class="btn btn-outline-success" type="submit">Update Expense</button>
+                      <button class="btn btn-outline-danger"  id="cancel/<%=expense._id%>">Cancel</button>
+                    </div>
+                  </form>
+                </dialog>
+                <script>
+                  var btnclick=document.getElementById("edit/<%=expense._id%>");
+                  
+                  var btncancel=document.getElementById("cancel/<%=expense._id%>");
+                  btnclick.addEventListener('click',()=>{
+                    // alert("clicked <%=expense.expensename%>");
+                    var dialog=document.getElementById("dialog/<%=expense._id%>");
+                    dialog.show();
+                  });
+                  btncancel.addEventListener('click',()=>{
+                    var dialog=document.getElementById("dialog/<%=expense._id%>");
+                    dialog.close();
+                  })
+                  </script>
+              <a href="/delete/<%=expense._id%>"><button class="btn btn-outline-danger">Delete</button></a>
+            </div>
           </div>
         </div>
+        <%})%>
+    
       </div>
-      <%})%>
-  </div>
+      <% if(!expensedata.length){%>
+        <h1 class="display-6" style="text-align: center;" >No expenses yet , create one</h1>
+ <% }%>
 
   </dialog>
 </body>
